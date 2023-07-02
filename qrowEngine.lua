@@ -1,15 +1,4 @@
--- A Foreward
-
--- This is an "engine", but moreso a framework
--- built from the ground up as a test for me.
--- I want it to run things smoothly and quickly,
--- with a simple iteration process.
-
--- I'm also planning on building a map editor specifically for Qrow (because I'm just so cool.)
-
--- That's all.
-
---      - Kappa
+-- Kaffeehaus Games Official Library
 
 -- ~~ LOAD SDL ~~ --
 SDL = require("SDL")
@@ -81,10 +70,11 @@ end
 
 -- ~~ INPUT ~~ --
 
+keysHeld = {}
 keysPressed = {}
 
-function checkKey(key)
-    for i, v in ipairs(keysPressed) do
+function checkKeyDown(key)
+    for i, v in ipairs(keysHeld) do
         if v == key then
             return true
         end
@@ -94,17 +84,31 @@ function checkKey(key)
 
 end
 
+function checkKeyPressed(key)
+    for i, v in ipairs(keysPressed) do
+        if v == key then
+            keysPressed = {}
+            return true
+        end
+    end
+
+    return false
+
+end
+
+
 function getKeys()
     for e in SDL.pollEvent() do
         if e.type == SDL.event.Quit then
             exitIsPressed = true
         elseif e.type == SDL.event.KeyDown then
+            table.insert(keysHeld, SDL.getKeyName(e.keysym.sym))
             table.insert(keysPressed, SDL.getKeyName(e.keysym.sym))
-            print(SDL.getKeyName(e.keysym.sym))
+            --print(SDL.getKeyName(e.keysym.sym))
         elseif e.type == SDL.event.KeyUp then
-            for i, v in ipairs(keysPressed) do
+            for i, v in ipairs(keysHeld) do
                 if v == SDL.getKeyName(e.keysym.sym) then
-                    table.remove( keysPressed, i)
+                    table.remove( keysHeld, i)
                 end
             end
         end
