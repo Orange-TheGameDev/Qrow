@@ -6,7 +6,13 @@ made by kappa of Kaffeehaus Software.
 
 # News, Updates, Etc
 
-v1.5.2 is officially out!
+## THIS REPO IS OFFICIALLY OUTDATED!
+
+This repo is being moved to kaffeehaussoftware/qrowengine
+
+Don't worry, it's still maintained and run by me :)
+
+## v1.5.2 is officially out!
 
 - Changed checkKey to checkKeyDown
 - Added checkKeyPressed
